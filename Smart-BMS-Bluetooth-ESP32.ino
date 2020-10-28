@@ -20,28 +20,13 @@ known bugs:
 -reconnection sort of works, sometimes ESP reboots
 */
 
-//#define TRACE commSerial.println(__FUNCTION__)
 #define TRACE
-//#define SIMULATION
 #include <Arduino.h>
 #include "BLEDevice.h"
-//#include "BLEScan.h"  //why this is commented?
 #include "mydatatypes.h"
-#include <SPI.h>
-#include <TFT_eSPI.h>
-//#include <NeoPixelBrightnessBus.h>
-//#include <U8g2lib.h>
 #include <Wire.h>
 
-// #include <WiFi.h>
-// #include <WiFiClient.h>
-// #include <WebServer.h>
-// #include <Update.h>
-// #include "webpages.h"
-
 HardwareSerial commSerial(0);
-HardwareSerial bmsSerial(1);
-//WebServer server(80);
 
 //---- global variables ----
 
@@ -66,12 +51,7 @@ void setup()
 {
 
 	commSerial.begin(115200, SERIAL_8N1, 3, 1);
-	bmsSerial.begin(9600, SERIAL_8N1, 21, 22);
 	commSerial.println("Starting ebike dashboard application...");
-	//	stripStartup();
-	//	oled_startup();
-	lcdStartup();
-	// newtworkStartup();
 	bleStartup();
 }
 //---------------------main loop------------------
@@ -81,7 +61,6 @@ void loop()
 	//server.handleClient();
 	if (newPacketReceived == true)
 	{
-		showInfoLcd;
 		printBasicInfo();
 		printCellInfo();
 	}
